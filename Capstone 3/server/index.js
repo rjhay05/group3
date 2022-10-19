@@ -1,10 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const cookieSession = require('cookie-session')
-const passport = require('passport');
 const mongoose = require('mongoose');
-const passportSetup = require('./passport.js')
-const googleAuthRoute = require('./routes/googleAuth')
 const authRoute = require('./routes/auth');
 const userRoute = require('./routes/user');
 const app = express();
@@ -17,8 +14,7 @@ app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }))
 
-app.use(passport.initialize())
-app.use(passport.session())
+
 
 app.use(cors({
     origin:'http://localhost:3000',
@@ -27,7 +23,7 @@ app.use(cors({
 }))
 
 //routes
-app.use('/auth', googleAuthRoute);
+
 app.use('/api/users', userRoute);
 app.use('/api/auth', authRoute);
 

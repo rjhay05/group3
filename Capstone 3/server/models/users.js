@@ -7,7 +7,6 @@ const userSchema = new mongoose.Schema({
     userName:{
         type: String,
         required: true,
-        min: 10,
     },
     email:{
         type: String,
@@ -35,4 +34,4 @@ const validate = (data)=>{
     return schema.validate(data)
 }
 
-module.exports = { User, validate}
+module.exports = { User, validate}  
