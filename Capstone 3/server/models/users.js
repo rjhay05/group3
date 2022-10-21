@@ -15,7 +15,8 @@ const userSchema = new mongoose.Schema({
     password:{
         type: String,
         required: true,
-    }
+    },
+
 })
 
 userSchema.methods.generateAuthToken = function (){
@@ -29,7 +30,11 @@ const validate = (data)=>{
     const schema = Joi.object({
         userName: Joi.string().required().label('Username'),
         email: Joi.string().email().required().label('Email'),
-        password: passwordComplexity().required().label('Password')
+        password: passwordComplexity().required().label('Password'),
+        confirm_password: Joi.any().equal(Joi.ref('password'))
+        .required()
+        .label('Password')
+        .options({ messages: { 'any.only': '{{#label}} does not match'} })
     })
     return schema.validate(data)
 }
